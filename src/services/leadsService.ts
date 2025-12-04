@@ -20,6 +20,12 @@ export interface Lead {
     updated_at: string;
 }
 
+export interface LeadsApiResponse {
+  status: string;
+  count: number;
+  data: Lead[];
+}
+
 export interface CreateLeadData {
   full_name: string;
   position: string;
@@ -45,12 +51,12 @@ class LeadService {
         throw new Error('User not authenticated or no organization');
       }
 
-      const response = await httpClient.get<Lead[]>(`/organisations/${currentUser.organisation_id}/leads`);
-
-      if (response.success) {
-        return response.data || [];
+      const response = await httpClient.get<LeadsApiResponse>(`/organisations/${currentUser.organisation_id}/leads`);
+      
+      if (response.success && response.data) {
+        return response.data.data || [];
       }
-
+      
       throw new Error(response.message || 'Failed to fetch leads');
     } catch (error) {
       console.error('Get leads error:', error);

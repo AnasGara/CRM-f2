@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, Users, Target, CheckSquare, Calendar, Mail, BarChart3, Settings, Zap, Link, Sparkles, Menu, X, Building, ChevronDown, Check, UserPlus, Cog } from 'lucide-react';
+import { LayoutDashboard, Users, Target, CheckSquare, Calendar, Mail, BarChart3, Settings, Zap, Link, Sparkles, Menu, X, Building, ChevronDown, Check, UserPlus, Cog, Filter } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useOrganization } from '../contexts/OrganizationContext';
 import { authService } from '../services/authService';
@@ -24,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
   const menuItems = [
     { id: 'dashboard' as View, label: t('dashboard'), icon: LayoutDashboard },
     { id: 'contacts' as View, label: t('contacts'), icon: Users },
-    { id: 'leads' as View, label: t('leads'), icon: Users },
+    { id: 'leads' as View, label: t('leads'), icon: Filter },
     { id: 'opportunities' as View, label: t('opportunities'), icon: Target },
     { id: 'tasks' as View, label: t('tasks'), icon: CheckSquare },
     //{ id: 'calendar' as View, label: t('calendar'), icon: Calendar },
