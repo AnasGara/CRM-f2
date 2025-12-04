@@ -18,11 +18,13 @@ import Integrations from './components/Integrations';
 import Settings from './components/Settings';
 import JoinOrganization from './components/JoinOrganization';
 import OrganizationManagement from './components/OrganizationManagement';
+import Leads from './components/Leads';
 // authService might still be needed by LandingPage, or LandingPage uses useAuth for login action
 
 export type View = 'dashboard' | 'contacts' | 'leads' | 'opportunities' | 'tasks' | 'calendar' | 'email' | 'analytics' | 'integrations' | 'settings' | 'join-organization' | 'organization-management';
 
 function App() {
+  console.log('App component rendering');
   // Get auth state and functions from AuthContext
   const auth = useAuth(); 
   // const { isAuthenticated, isLoading, currentUser, login, logout, checkAuthStatusOnAppLoad } = useAuth(); // Destructure if preferred
@@ -100,6 +102,8 @@ function App() {
         return <JoinOrganization searchTerm={searchTerm} />;
       case 'organization-management':
         return <OrganizationManagement />;
+    case 'leads':
+        return <Leads searchTerm={searchTerm} />;
       default:
         return <Dashboard />;
     }
@@ -120,10 +124,6 @@ function App() {
   if (!auth.isAuthenticated) {
     return (
       <LanguageProvider>
-        {/* LandingPage's onLogin now needs to be changed.
-            It should perform the API login and then call auth.login(response)
-            For now, we pass auth.login, assuming LandingPage is adapted.
-        */}
         <LandingPage onLogin={auth.login} />
       </LanguageProvider>
     );
@@ -132,7 +132,7 @@ function App() {
   return (
     <LanguageProvider>
       <OrganizationProvider>
-        <NotificationProvider>
+        {/* <NotificationProvider> */}
           <div className="min-h-screen bg-mesh flex">
             <Sidebar activeView={activeView} onViewChange={setActiveView} />
             <div className="flex-1 flex flex-col lg:ml-0">
@@ -150,7 +150,7 @@ function App() {
               </main>
             </div>
           </div>
-        </NotificationProvider>
+        {/* </NotificationProvider> */}
       </OrganizationProvider>
     </LanguageProvider>
   );

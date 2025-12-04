@@ -137,6 +137,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         console.error("Non-401 error during token validation:", validationError);
         await _clearAuthState(false); // Clear local state, server state unknown.
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
