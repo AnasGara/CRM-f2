@@ -17,6 +17,7 @@ interface NotificationContextType {
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
+  console.log('NotificationProvider rendering');
   const { isAuthenticated } = useAuth();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState<number>(0);
@@ -100,7 +101,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
       setCurrentPage(1);
       setHasMore(true);
     }
-  }, [isAuthenticated, fetchNotifications, refreshUnreadCount]);
+  }, [isAuthenticated]);
 
   return (
     <NotificationContext.Provider
