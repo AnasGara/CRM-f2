@@ -14,10 +14,10 @@ test('Leads CRUD verification - programmatic login', async ({ page }) => {
   }, loginResponse.token);
 
   // Go to the leads page
-  await page.goto('/dashboard/leads');
+  await page.goto('http://localhost:5173/dashboard/leads');
 
   // Wait for the page to load
-  await page.waitForURL('/dashboard/leads');
+  await page.waitForURL('http://localhost:5173/dashboard/leads');
 
   // Verify that the leads page is loaded by checking for a known element
   await expect(page.locator('h1:has-text("Leads")')).toBeVisible();

@@ -52,11 +52,11 @@ class LeadService {
       }
 
       const response = await httpClient.get<LeadsApiResponse>(`/organisations/${currentUser.organisation_id}/leads`);
-
+      
       if (response.success && response.data) {
         return response.data.data || [];
       }
-
+      
       throw new Error(response.message || 'Failed to fetch leads');
     } catch (error) {
       console.error('Get leads error:', error);
