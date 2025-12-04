@@ -24,6 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
   const menuItems = [
     { id: 'dashboard' as View, label: t('dashboard'), icon: LayoutDashboard },
     { id: 'contacts' as View, label: t('contacts'), icon: Users },
+    { id: 'leads' as View, label: t('leads'), icon: Users },
     { id: 'opportunities' as View, label: t('opportunities'), icon: Target },
     { id: 'tasks' as View, label: t('tasks'), icon: CheckSquare },
     //{ id: 'calendar' as View, label: t('calendar'), icon: Calendar },
