@@ -5,7 +5,7 @@
 export const API_CONFIG = {
   // Base URL for your backend API - use Vite's import.meta.env instead of process.env
   //BASE_URL: import.meta.env.VITE_API_BASE_URL ||  'https://crm-backend.66ghz.com/public/api',
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api',
+  BASE_URL: 'http://127.0.0.1:8000/api',
   
   // API Version
   VERSION: '',

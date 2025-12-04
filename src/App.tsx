@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import Contacts from './components/Contacts';
+import Leads from './components/Leads';
 import Opportunities from './components/Opportunities';
 import Tasks from './components/Tasks';
 import Calendar from './components/Calendar';
@@ -19,7 +20,7 @@ import JoinOrganization from './components/JoinOrganization';
 import OrganizationManagement from './components/OrganizationManagement';
 // authService might still be needed by LandingPage, or LandingPage uses useAuth for login action
 
-export type View = 'dashboard' | 'contacts' | 'opportunities' | 'tasks' | 'calendar' | 'email' | 'analytics' | 'integrations' | 'settings' | 'join-organization' | 'organization-management';
+export type View = 'dashboard' | 'contacts' | 'leads' | 'opportunities' | 'tasks' | 'calendar' | 'email' | 'analytics' | 'integrations' | 'settings' | 'join-organization' | 'organization-management';
 
 function App() {
   // Get auth state and functions from AuthContext
@@ -79,6 +80,8 @@ function App() {
         return <Dashboard />;
       case 'contacts':
         return <Contacts searchTerm={searchTerm} />;
+      case 'leads':
+        return <Leads />;
       case 'opportunities':
         return <Opportunities searchTerm={searchTerm} />;
       case 'tasks':
