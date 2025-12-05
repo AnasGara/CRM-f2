@@ -5,7 +5,7 @@
 export const API_CONFIG = {
   // Base URL for your backend API - use Vite's import.meta.env instead of process.env
   //BASE_URL: import.meta.env.VITE_API_BASE_URL ||  'https://crm-backend.66ghz.com/public/api',
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api',
+  BASE_URL: 'http://127.0.0.1:8000/api',
   
   // API Version
   VERSION: '',
@@ -28,43 +28,65 @@ class TokenManager {
   private static readonly USER_KEY = 'gdpilia-user';
 
   static getToken(): string | null {
+    if (typeof localStorage === 'undefined') {
+      return null;
+    }
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
   static setToken(token: string): void {
-    localStorage.setItem(this.TOKEN_KEY, token);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.TOKEN_KEY, token);
+    }
   }
 
   static getRefreshToken(): string | null {
+    if (typeof localStorage === 'undefined') {
+      return null;
+    }
     return localStorage.getItem(this.REFRESH_TOKEN_KEY);
   }
 
   static setRefreshToken(token: string): void {
-    localStorage.setItem(this.REFRESH_TOKEN_KEY, token);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.REFRESH_TOKEN_KEY, token);
+    }
   }
 
   static getFirstTimeLogin(): boolean {
+    if (typeof localStorage === 'undefined') {
+      return false;
+    }
     return localStorage.getItem(this.FIRST_TIME_LOGIN_KEY) === '1';
   }
 
   static setFirstTimeLogin(isFirstTime: boolean): void {
-    localStorage.setItem(this.FIRST_TIME_LOGIN_KEY, isFirstTime ? '1' : '0');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.FIRST_TIME_LOGIN_KEY, isFirstTime ? '1' : '0');
+    }
   }
 
   static getUser(): any | null {
+    if (typeof localStorage === 'undefined') {
+      return null;
+    }
     const user = localStorage.getItem(this.USER_KEY);
     return user ? JSON.parse(user) : null;
   }
 
   static setUser(user: any): void {
-    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    }
   }
 
   static clearTokens(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.REFRESH_TOKEN_KEY);
-    localStorage.removeItem(this.FIRST_TIME_LOGIN_KEY);
-    localStorage.removeItem(this.USER_KEY);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem(this.TOKEN_KEY);
+      localStorage.removeItem(this.REFRESH_TOKEN_KEY);
+      localStorage.removeItem(this.FIRST_TIME_LOGIN_KEY);
+      localStorage.removeItem(this.USER_KEY);
+    }
   }
 
   static isTokenExpired(token: string): boolean {

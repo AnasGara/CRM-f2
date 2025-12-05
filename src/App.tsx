@@ -17,11 +17,13 @@ import Integrations from './components/Integrations';
 import Settings from './components/Settings';
 import JoinOrganization from './components/JoinOrganization';
 import OrganizationManagement from './components/OrganizationManagement';
+import Leads from './components/Leads';
 // authService might still be needed by LandingPage, or LandingPage uses useAuth for login action
 
-export type View = 'dashboard' | 'contacts' | 'opportunities' | 'tasks' | 'calendar' | 'email' | 'analytics' | 'integrations' | 'settings' | 'join-organization' | 'organization-management';
+export type View = 'dashboard' | 'contacts' | 'opportunities' | 'tasks' | 'calendar' | 'email' | 'analytics' | 'integrations' | 'settings' | 'join-organization' | 'organization-management' | 'leads';
 
 function App() {
+  console.log('App component rendering');
   // Get auth state and functions from AuthContext
   const auth = useAuth(); 
   // const { isAuthenticated, isLoading, currentUser, login, logout, checkAuthStatusOnAppLoad } = useAuth(); // Destructure if preferred
@@ -97,6 +99,8 @@ function App() {
         return <JoinOrganization searchTerm={searchTerm} />;
       case 'organization-management':
         return <OrganizationManagement />;
+    case 'leads':
+        return <Leads searchTerm={searchTerm} />;
       default:
         return <Dashboard />;
     }
@@ -117,10 +121,6 @@ function App() {
   if (!auth.isAuthenticated) {
     return (
       <LanguageProvider>
-        {/* LandingPage's onLogin now needs to be changed.
-            It should perform the API login and then call auth.login(response)
-            For now, we pass auth.login, assuming LandingPage is adapted.
-        */}
         <LandingPage onLogin={auth.login} />
       </LanguageProvider>
     );
