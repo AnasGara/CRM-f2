@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import Contacts from './components/Contacts';
+import Leads from './components/Leads';
 import Opportunities from './components/Opportunities';
 import Tasks from './components/Tasks';
 import Calendar from './components/Calendar';
@@ -20,7 +21,7 @@ import OrganizationManagement from './components/OrganizationManagement';
 import Leads from './components/Leads';
 // authService might still be needed by LandingPage, or LandingPage uses useAuth for login action
 
-export type View = 'dashboard' | 'contacts' | 'opportunities' | 'tasks' | 'calendar' | 'email' | 'analytics' | 'integrations' | 'settings' | 'join-organization' | 'organization-management' | 'leads';
+export type View = 'dashboard' | 'contacts' | 'leads' | 'opportunities' | 'tasks' | 'calendar' | 'email' | 'analytics' | 'integrations' | 'settings' | 'join-organization' | 'organization-management';
 
 function App() {
   console.log('App component rendering');
@@ -81,6 +82,8 @@ function App() {
         return <Dashboard />;
       case 'contacts':
         return <Contacts searchTerm={searchTerm} />;
+      case 'leads':
+        return <Leads />;
       case 'opportunities':
         return <Opportunities searchTerm={searchTerm} />;
       case 'tasks':
@@ -129,7 +132,7 @@ function App() {
   return (
     <LanguageProvider>
       <OrganizationProvider>
-        <NotificationProvider>
+        {/* <NotificationProvider> */}
           <div className="min-h-screen bg-mesh flex">
             <Sidebar activeView={activeView} onViewChange={setActiveView} />
             <div className="flex-1 flex flex-col lg:ml-0">
@@ -147,7 +150,7 @@ function App() {
               </main>
             </div>
           </div>
-        </NotificationProvider>
+        {/* </NotificationProvider> */}
       </OrganizationProvider>
     </LanguageProvider>
   );

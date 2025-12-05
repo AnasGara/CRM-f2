@@ -46,12 +46,17 @@ export interface UpdateLeadData extends Partial<CreateLeadData> {}
 class LeadService {
   async getLeads(): Promise<Lead[]> {
     try {
-      const response = await httpClient.get<Lead[]>('/api/leads');
-
-      if (response.success && response.data) {
-        return response.data;
+      const currentUser = authService.getStoredUser();
+      if (!currentUser || !currentUser.organisation_id) {
+        throw new Error('User not authenticated or no organization');
       }
 
+      const response = await httpClient.get<LeadsApiResponse>(`/organisations/${currentUser.organisation_id}/leads`);
+      
+      if (response.success && response.data) {
+        return response.data.data || [];
+      }
+      
       throw new Error(response.message || 'Failed to fetch leads');
     } catch (error) {
       console.error('Get leads error:', error);
@@ -61,7 +66,7 @@ class LeadService {
 
   async createLead(leadData: CreateLeadData): Promise<Lead> {
     try {
-      const response = await httpClient.post<Lead>('/api/leads', leadData);
+      const response = await httpClient.post<Lead>('/leads', leadData);
       if (response.success && response.data) {
         return response.data;
       }
@@ -74,7 +79,7 @@ class LeadService {
 
   async updateLead(id: number, leadData: UpdateLeadData): Promise<Lead> {
     try {
-      const response = await httpClient.put<Lead>(`/api/leads/${id}`, leadData);
+      const response = await httpClient.put<Lead>(`/leads/${id}`, leadData);
       if (response.success && response.data) {
         return response.data;
       }
@@ -87,7 +92,7 @@ class LeadService {
 
   async deleteLead(id: number): Promise<void> {
     try {
-      const response = await httpClient.delete(`/api/leads/${id}`);
+      const response = await httpClient.delete(`/leads/${id}`);
       if (!response.success) {
         throw new Error(response.message || 'Failed to delete lead');
       }
